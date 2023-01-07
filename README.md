@@ -1,12 +1,16 @@
 # Sample applications
 
+Two sample applications showing different approaches to stream to actor interoperability in Akka streams.  
+
 ## Ask based 
 A simple flow with actor interoperability using the ask pattern together with `ActorFlow.ask`
 
-
+The code is prepared to enable simple modification to study different error scenarios, look at the `var counter`. 
 
 ## Stage actor based
 
+A simple flow with actor interoperability using the stage actor based approach using `ActorRefBackpressureProcessFlowStage`
+The code is prepared to enable simple modification to study different error scenarios, look at the `var counter`.
 
 # Running instructions
 
