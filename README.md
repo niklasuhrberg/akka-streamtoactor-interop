@@ -1,4 +1,4 @@
-# Sample applications
+# Akka stream to actor interoperability sample applications
 
 Two sample applications showing different approaches to stream to actor interoperability in Akka streams.  
 
