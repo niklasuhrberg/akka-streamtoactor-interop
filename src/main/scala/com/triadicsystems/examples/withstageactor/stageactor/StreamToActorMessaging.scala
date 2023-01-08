@@ -5,19 +5,19 @@ import com.triadicsystems.examples.protocol.FlowMessages.{Invocation, Response}
 
 
 object StreamToActorMessaging {
-  trait StreamToActorMessage
+  trait StreamToActorMessage[+T]
 
-  case class StreamInit(replyTo:ActorRef[StreamToActorMessage]) extends StreamToActorMessage
+  case class StreamInit[T](replyTo:ActorRef[StreamToActorMessage[T]]) extends StreamToActorMessage[T]
 
-  case object StreamAck extends StreamToActorMessage
+  case object StreamAck extends StreamToActorMessage[Nothing]
 
-  case object StreamCompleted extends StreamToActorMessage
+  case object StreamCompleted extends StreamToActorMessage[Nothing]
 
-  case class StreamFailed(ex: Throwable) extends StreamToActorMessage
+  case class StreamFailed(ex: Throwable) extends StreamToActorMessage[Nothing]
 
-  case class StreamElementIn(msg: Invocation, replyTo:ActorRef[StreamToActorMessage]) extends StreamToActorMessage
+  case class StreamElementIn[T](msg: T, replyTo:ActorRef[StreamToActorMessage[T]]) extends StreamToActorMessage[T]
 
-  case class StreamElementOut(msg: Response) extends StreamToActorMessage
+  case class StreamElementOut[T](msg: T) extends StreamToActorMessage[T]
 
-  case class StreamElementOutWithAck(msg:Response) extends StreamToActorMessage
+  case class StreamElementOutWithAck[T](msg:T) extends StreamToActorMessage[T]
 }

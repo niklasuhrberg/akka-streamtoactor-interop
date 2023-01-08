@@ -7,8 +7,8 @@ import akka.actor.typed.{ActorSystem, Behavior}
 import akka.stream.WatchedActorTerminatedException
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.util.Timeout
-import com.triadicsystems.examples.protocol.FlowMessages.{Invocation, Response}
-import com.triadicsystems.examples.withstageactor.stageactor.{ActorRefBackpressureProcessFlowStage}
+import com.triadicsystems.examples.protocol.FlowMessages.{FlowMessage, Invocation, Response}
+import com.triadicsystems.examples.withstageactor.stageactor.ActorRefBackpressureProcessFlowStage
 import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging.StreamToActorMessage
 import com.typesafe.scalalogging.LazyLogging
 
@@ -23,9 +23,9 @@ object StreamWithStageActor extends LazyLogging {
     implicit val system: ActorSystem[_] = ctx.system
     import system.executionContext
 
-    val targetActor = ctx.actorOf(PropsAdapter[StreamToActorMessage](TargetActor()))
-    val actorFlow: Flow[Invocation, Response, NotUsed] =
-      Flow.fromGraph(new ActorRefBackpressureProcessFlowStage(targetActor))
+    val targetActor = ctx.actorOf(PropsAdapter[StreamToActorMessage[FlowMessage]](TargetActor()))
+    val actorFlow: Flow[FlowMessage, FlowMessage, NotUsed] =
+      Flow.fromGraph(new ActorRefBackpressureProcessFlowStage[FlowMessage](targetActor))
         val value = Source(1 to 3).map {
           case 4 =>
             logger.debug(s"Step 1, 3 arrived, will throw exception")

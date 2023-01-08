@@ -1,13 +1,12 @@
 package com.triadicsystems.examples.withstageactor.stageactor
 import akka.actor.typed.scaladsl.adapter._
 import akka.actor.{ActorRef, Terminated}
-import akka.stream.{Attributes, FlowShape, Inlet, Outlet, WatchedActorTerminatedException}
 import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
-import com.triadicsystems.examples.protocol.FlowMessages.{Invocation, Response}
+import akka.stream._
 
 import scala.util.Failure
 
-class ActorRefBackpressureProcessFlowStage(private val targetActor: ActorRef) extends GraphStage[FlowShape[Invocation, Response]] {
+class ActorRefBackpressureProcessFlowStage[T](private val targetActor: ActorRef) extends GraphStage[FlowShape[T, T]] {
   /**
    * Sends the elements of the stream to the given `ActorRef` that sends back back-pressure signal.
    * First element is always `StreamInit`, then stream is waiting for acknowledgement message
@@ -27,12 +26,12 @@ class ActorRefBackpressureProcessFlowStage(private val targetActor: ActorRef) ex
    * Note: The author of this code originally is Fran van Meeuwen. I have only adjusted the messaging protocol due to the
    * fact that I use Akka Typed. 
    *
-   * @author Fran van Meeuwen
+   * @author Frank van Meeuwen with some adaptations by Niklas Uhrberg (for akka typed)
    */
     import StreamToActorMessaging._
 
-    val in: Inlet[Invocation] = Inlet("ActorFlowIn")
-    val out: Outlet[Response] = Outlet("ActorFlowOut")
+    val in: Inlet[T] = Inlet("ActorFlowIn")
+    val out: Outlet[T] = Outlet("ActorFlowOut")
 
     override def createLogic(inheritedAttributes: Attributes): GraphStageLogic = new GraphStageLogic(shape) {
 
@@ -49,7 +48,7 @@ class ActorRefBackpressureProcessFlowStage(private val targetActor: ActorRef) ex
         }
 
         def onElementOut(elemOut: Any): Unit = {
-          val elem = elemOut.asInstanceOf[Response]
+          val elem = elemOut.asInstanceOf[T]
           emit(out, elem)
         }
 
@@ -76,7 +75,7 @@ class ActorRefBackpressureProcessFlowStage(private val targetActor: ActorRef) ex
       override def preStart(): Unit = {
         //initialize stage actor and watch flow actor.
         self.watch(targetActor)
-        tellTargetActor(StreamInit(self.ref))
+        tellTargetActor(StreamInit[T](self.ref))
         expectingAck = true
       }
 
@@ -84,7 +83,7 @@ class ActorRefBackpressureProcessFlowStage(private val targetActor: ActorRef) ex
 
         override def onPush(): Unit = {
           val elementIn = grab(in)
-          tellTargetActor(StreamElementIn(elementIn, self.ref))
+          tellTargetActor(StreamElementIn[T](elementIn, self.ref))
           expectingAck = true
         }
 
@@ -145,7 +144,7 @@ class ActorRefBackpressureProcessFlowStage(private val targetActor: ActorRef) ex
       }
     }
 
-    override def shape: FlowShape[Invocation, Response] = FlowShape(in, out)
+    override def shape: FlowShape[T, T] = FlowShape(in, out)
 
   }
 
