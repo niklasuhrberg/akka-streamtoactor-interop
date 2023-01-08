@@ -1,0 +1,11 @@
+@startuml
+skinparam state {
+    StartColor PaleGreen
+    EndColor Red
+    BackgroundColor LightGrey
+    BorderColor Black
+}
+[*] --> Source
+Source -down-> ActorSink
+ActorSink -right-> TargetActor
+@enduml
