@@ -1,0 +1,14 @@
+@startuml
+skinparam state {
+    StartColor PaleGreen
+    EndColor Red
+    BackgroundColor LightGrey
+'    BackgroundColor<<Junction>> GreenYellow
+    BorderColor Black
+}
+[*] --> Source
+Source -down-> ActorRefBackpressureProcessFlowStage
+ActorRefBackpressureProcessFlowStage -right-> TargetActor : tell StreamToActorMessage[T]  protocol with \n a replyTo stageActor
+TargetActor -left-> ActorRefBackpressureProcessFlowStage  : tell StreamToActorMessage[T]
+ActorRefBackpressureProcessFlowStage --> Sink : continues
+@enduml
