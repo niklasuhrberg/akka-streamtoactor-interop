@@ -21,7 +21,7 @@ import scala.util.{Failure, Success}
     This is to show that the lifecycle can indeed be handled in the ask based flow too.
  2. Failure in the stream. Change the "case 6" to e.g. "case 2" and watch the target actor get the StreamFailed message
     ending the lifecycle.
- 3. Failure with the target actor throwing IllegalArgumentException. Change the var counter (in TargetActor) to initial
+ 3. Failure with the target actor throwing IllegalStateException. Change the var counter (in TargetActor) to initial
     value 1 and study the stream recovering from akka.stream.WatchedActorTerminatedException. The recovery logic causes the exception being
     handled by emitting Response("The end", 100). Before this final element, only one response makes it to the Sink and
     this is logged with e.g. "[Got response Response(Invocation no 1,17)]"
@@ -29,7 +29,7 @@ import scala.util.{Failure, Success}
     comparable to 3 in that also then only one response makes it the the Sink. However, since the target actor only
     is slower (causing the timeout) it will get three Invocation messages, the last of which happens after the stream
     fails since it is already in the mailbox of the actor. Only after the third Invocation message does the StreamFailed
-    arrive. Although this may seem odd at a first glance, it makes full sense. 
+    arrive. Although this may seem odd at a first glance, it makes full sense.
  */
 object StreamWithAsk extends LazyLogging {
 

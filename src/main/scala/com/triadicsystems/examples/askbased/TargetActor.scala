@@ -15,11 +15,11 @@ object TargetActor extends LazyLogging {
   case object StreamFailed extends ProcessMessage
   case class Response(name: String, sum: Int) extends ProcessMessage
 
-  var counter = 6 // Change the initial value to study the behavior in the actor fails (1), or causes a timeout (6)
+  var counter = 1 // Change the initial value to study the behavior in the actor fails (1), or causes a timeout (6)
   def apply(): Behavior[ProcessMessage] = Behaviors.receiveMessage {
     case Invocation(name, replyTo) =>
       counter += 1
-      if(counter == 3) throw new IllegalArgumentException("Three is a bad number from target actor")
+      if(counter == 3) throw new IllegalStateException("Three is a bad number from target actor")
       if(counter == 8) {
         logger.debug(s"Received Invocation($name) with counter == 8, will now sleep for 10 seconds to cause a timeout")
         Thread.sleep(10000)
