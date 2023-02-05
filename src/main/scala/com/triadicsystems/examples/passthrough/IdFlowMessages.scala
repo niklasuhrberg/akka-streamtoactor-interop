@@ -1,7 +1,10 @@
-package com.triadicsystems.examples.withstageactor.passthough
+package com.triadicsystems.examples.passthrough
 
 import java.util.UUID
 
+/**
+ * Application messages with an id to support the pass-through style functionality.
+ */
 object IdFlowMessages {
   trait FlowMessageWithId {
     def id:UUID

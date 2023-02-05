@@ -1,8 +1,8 @@
-package com.triadicsystems.examples.withask
+package com.triadicsystems.examples.askbased
 
 import akka.actor.typed.ActorSystem
 
-object Main extends App {
+object MainAskBased extends App {
 
   ActorSystem[Nothing](StreamWithAsk(), "Demosystem")
 }

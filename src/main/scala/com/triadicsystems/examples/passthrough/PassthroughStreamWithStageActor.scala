@@ -1,4 +1,4 @@
-package com.triadicsystems.examples.withstageactor.passthough
+package com.triadicsystems.examples.passthrough
 
 
 import akka.NotUsed
@@ -9,8 +9,8 @@ import akka.stream.WatchedActorTerminatedException
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.util.Timeout
 import com.triadicsystems.examples.protocol.FlowMessages.Response
-import com.triadicsystems.examples.withstageactor.passthough.IdFlowMessages.{FlowMessageWithId, InvocationWithId}
-import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging.StreamToActorMessage
+import com.triadicsystems.examples.passthrough.IdFlowMessages.{FlowMessageWithId, InvocationWithId}
+import com.triadicsystems.examples.protocol.StreamToActorMessaging.StreamToActorMessage
 import com.typesafe.scalalogging.LazyLogging
 
 import java.util.UUID

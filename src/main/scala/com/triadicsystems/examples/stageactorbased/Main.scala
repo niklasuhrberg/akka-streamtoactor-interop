@@ -1,8 +1,8 @@
-package com.triadicsystems.examples.withstageactor
+package com.triadicsystems.examples.stageactorbased
 
 import akka.actor.typed.ActorSystem
 
-object MainStageActor extends App {
+object Main extends App {
 
   ActorSystem[Nothing](StreamWithStageActor(), "Demosystem")
 }

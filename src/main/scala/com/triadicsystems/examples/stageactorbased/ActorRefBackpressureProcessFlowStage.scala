@@ -1,8 +1,10 @@
-package com.triadicsystems.examples.withstageactor.stageactor
+package com.triadicsystems.examples.stageactorbased
+
 import akka.actor.typed.scaladsl.adapter._
 import akka.actor.{ActorRef, Terminated}
-import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
 import akka.stream._
+import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
+import com.triadicsystems.examples.protocol.StreamToActorMessaging
 
 import scala.util.Failure
 

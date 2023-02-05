@@ -1,10 +1,9 @@
-package com.triadicsystems.examples.withstageactor.passthough
+package com.triadicsystems.examples.passthrough
 
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
-import com.triadicsystems.examples.protocol.FlowMessages.{FlowMessage, Invocation, Response}
-import com.triadicsystems.examples.withstageactor.passthough.IdFlowMessages.{FlowMessageWithId, InvocationWithId, ResponseWithId}
-import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging._
+import com.triadicsystems.examples.passthrough.IdFlowMessages.{FlowMessageWithId, InvocationWithId, ResponseWithId}
+import com.triadicsystems.examples.protocol.StreamToActorMessaging._
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.util.Random

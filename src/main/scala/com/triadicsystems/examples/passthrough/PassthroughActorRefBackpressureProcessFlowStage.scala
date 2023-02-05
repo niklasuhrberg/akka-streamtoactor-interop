@@ -1,11 +1,11 @@
-package com.triadicsystems.examples.withstageactor.passthough
+package com.triadicsystems.examples.passthrough
 
 import akka.actor.typed.scaladsl.adapter._
 import akka.actor.{ActorRef, Terminated}
 import akka.stream._
 import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
-import com.triadicsystems.examples.withstageactor.passthough.IdFlowMessages.FlowMessageWithId
-import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging
+import com.triadicsystems.examples.passthrough.IdFlowMessages.FlowMessageWithId
+import com.triadicsystems.examples.protocol.StreamToActorMessaging
 
 import java.util.UUID
 import scala.collection.mutable

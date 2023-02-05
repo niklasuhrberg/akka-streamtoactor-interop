@@ -1,4 +1,4 @@
-package com.triadicsystems.examples.withask
+package com.triadicsystems.examples.askbased
 
 import akka.NotUsed
 import akka.actor.typed.scaladsl.Behaviors
@@ -7,7 +7,7 @@ import akka.stream.WatchedActorTerminatedException
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.ActorFlow
 import akka.util.Timeout
-import com.triadicsystems.examples.withask.TargetActor.{Invocation, ProcessMessage, Response, StreamCompleted, StreamFailed}
+import com.triadicsystems.examples.askbased.TargetActor.{Invocation, ProcessMessage, Response, StreamCompleted, StreamFailed}
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.duration.DurationInt

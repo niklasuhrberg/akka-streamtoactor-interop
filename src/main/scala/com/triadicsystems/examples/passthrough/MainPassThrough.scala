@@ -1,8 +1,8 @@
-package com.triadicsystems.examples.withstageactor.passthough
+package com.triadicsystems.examples.passthrough
 
 import akka.actor.typed.ActorSystem
 
-object MainStageActorWithPassthrough extends App {
+object MainPassThrough extends App {
 
   ActorSystem[Nothing](PassthroughStreamWithStageActor(), "Demosystem")
 }

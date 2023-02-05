@@ -1,8 +1,7 @@
-package com.triadicsystems.examples.withask
+package com.triadicsystems.examples.askbased
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging.StreamToActorMessage
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.util.Random

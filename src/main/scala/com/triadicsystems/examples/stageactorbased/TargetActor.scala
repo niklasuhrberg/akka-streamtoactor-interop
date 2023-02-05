@@ -1,14 +1,13 @@
-package com.triadicsystems.examples.withstageactor
+package com.triadicsystems.examples.stageactorbased
 
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
 import com.triadicsystems.examples.protocol.FlowMessages.{FlowMessage, Invocation, Response}
-import com.triadicsystems.examples.withstageactor.stageactor.ActorRefBackpressureProcessFlowStage
-import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging.StreamToActorMessage
+import com.triadicsystems.examples.protocol.StreamToActorMessaging.StreamToActorMessage
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.util.Random
-import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging._
+import com.triadicsystems.examples.protocol.StreamToActorMessaging._
 object TargetActor extends LazyLogging {
   var counter = 0
   def apply():Behavior[StreamToActorMessage[FlowMessage]] = Behaviors.receiveMessage[StreamToActorMessage[FlowMessage]] {

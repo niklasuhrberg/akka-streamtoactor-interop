@@ -22,16 +22,18 @@ will typically only contain _one single element_ in the use case.
 
 # Running instructions
 
-Run the applications in your IDE or the following way with sbt:
+Run the applications in your IDE or the following way with sbt. 
 
 In an sbt shell: 
+
+To run the ask based demo application issue:
+`runMain com.triadicsystems.examples.askbased.MainAskBased`
+
 To run the stageactor based demo application issue:
 `run` 
 or
-`runMain com.triadicsystems.examples.withstageactor.Main`
+`runMain com.triadicsystems.examples.stageactorbased.Main`
 
-To run the ask based demo application issue:
-`runMain com.triadicsystems.examples.withask.Main`
 
 To run the passthrough enabled demo application issue:
-`runMain com.triadicsystems.examples.withstageactor.passthough.MainStageActorWithPassthrough`
+`runMain com.triadicsystems.examples.passthrough.MainPassThrough`

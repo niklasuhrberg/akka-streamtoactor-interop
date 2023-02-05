@@ -43,7 +43,7 @@ lazy val root = (project in file("."))
 
 enablePlugins(JavaAppPackaging)
 
-Compile / mainClass := Some("com.triadicsystems.examples.withstageactor.MainStageActor")
+Compile / mainClass := Some("com.triadicsystems.examples.stageactorbased.MainStageActor")
 
 
 Test / test := (Test / test).dependsOn(scalafmtCheckAll).value

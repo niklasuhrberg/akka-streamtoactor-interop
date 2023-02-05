@@ -1,4 +1,4 @@
-package com.triadicsystems.examples.withstageactor
+package com.triadicsystems.examples.stageactorbased
 
 import akka.NotUsed
 import akka.actor.typed.scaladsl.Behaviors
@@ -8,8 +8,7 @@ import akka.stream.WatchedActorTerminatedException
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.util.Timeout
 import com.triadicsystems.examples.protocol.FlowMessages.{FlowMessage, Invocation, Response}
-import com.triadicsystems.examples.withstageactor.stageactor.ActorRefBackpressureProcessFlowStage
-import com.triadicsystems.examples.withstageactor.stageactor.StreamToActorMessaging.StreamToActorMessage
+import com.triadicsystems.examples.protocol.StreamToActorMessaging.StreamToActorMessage
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.duration.DurationInt
