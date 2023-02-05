@@ -9,7 +9,6 @@ See detailed descriptions of happy flow and different exceptional flows in the d
 A simple flow with actor interoperability using the ask pattern together with `ActorFlow.ask`
 
 The code is prepared to enable simple modification to study different error scenarios. 
-See comments in the code. 
 
 ## Stage actor based
 
@@ -30,13 +29,16 @@ Run the applications in your IDE or the following way with sbt.
 In an sbt shell: 
 
 To run the ask based demo application issue:
+
 `runMain com.triadicsystems.examples.askbased.MainAskBased`
 
 To run the stageactor based demo application issue:
 `run` 
 or
+
 `runMain com.triadicsystems.examples.stageactorbased.Main`
 
 
 To run the passthrough enabled demo application issue:
+
 `runMain com.triadicsystems.examples.passthrough.MainPassThrough`
