@@ -13,6 +13,24 @@ import com.typesafe.scalalogging.LazyLogging
 import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
 
+/*
+ This stream showcases the ask based interoperability with the following scenarios.
+ 1. Happy flow: Processes 5 elements each sending an Invocation to the target actor and receiving a Response.
+    Some logging is done enabling you to study the behaviour.
+    Note that when the stream completes a StreamCompleted message is sent to the target actor.
+    This is to show that the lifecycle can indeed be handled in the ask based flow too.
+ 2. Failure in the stream. Change the "case 6" to e.g. "case 2" and watch the target actor get the StreamFailed message
+    ending the lifecycle.
+ 3. Failure with the target actor throwing IllegalArgumentException. Change the var counter (in TargetActor) to initial
+    value 1 and study the stream recovering from akka.stream.WatchedActorTerminatedException. The recovery logic causes the exception being
+    handled by emitting Response("The end", 100). Before this final element, only one response makes it to the Sink and
+    this is logged with e.g. "[Got response Response(Invocation no 1,17)]"
+ 4. Failure caused by an ask timeout. The behaviour is triggered by setting the var counter to the value 6 making it
+    comparable to 3 in that also then only one response makes it the the Sink. However, since the target actor only
+    is slower (causing the timeout) it will get three Invocation messages, the last of which happens after the stream
+    fails since it is already in the mailbox of the actor. Only after the third Invocation message does the StreamFailed
+    arrive. Although this may seem odd at a first glance, it makes full sense. 
+ */
 object StreamWithAsk extends LazyLogging {
 
 
@@ -27,7 +45,7 @@ object StreamWithAsk extends LazyLogging {
     val value = Source(1 to 5).map {
       case 6 => // Change to a number 1-5 to study the behavior when the actor fails
         logger.debug(s"Step 1, 3 arrived, will throw exception")
-        throw new IllegalStateException("3 is a bad number")
+        throw new IllegalStateException("3 is a bad number from stream")
       case other =>
         logger.debug(s"Step 1 before the ask with value $other")
         other
