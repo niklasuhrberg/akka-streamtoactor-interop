@@ -1,6 +1,9 @@
 # Akka stream to actor interoperability sample applications
 
 A sample application in three different versions showing different approaches to stream to actor interoperability in Akka streams.  
+See detailed descriptions of happy flow and different exceptional flows in the documentation for
+`com.triadicsystems.examples.askbased.StreamWithAsk` , `com.triadicsystems.examples.stageactorbased.StreamWithStageActor`
+ and `com.triadicsystems.examples.passthrough.PassthroughStreamWithStageActor` respectively.
 
 ## Ask based 
 A simple flow with actor interoperability using the ask pattern together with `ActorFlow.ask`

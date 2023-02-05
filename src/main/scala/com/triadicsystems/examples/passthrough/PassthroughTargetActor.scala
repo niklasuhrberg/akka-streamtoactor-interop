@@ -18,14 +18,14 @@ object PassthroughTargetActor extends LazyLogging {
 
     case StreamElementIn(msg:InvocationWithId, replyTo)  =>
       counter += 1
-      if(counter ==10) throw new IllegalStateException("Artifical exception")
-      val toSleep = Random.nextInt(5) * 100
-      logger.debug(s"Received StreamElementIn with $msg, will sleep $toSleep before responding")
-      Thread.sleep(toSleep)
-      if(counter > 2) {
+      if(counter ==5) throw new IllegalStateException("5 is a bad number from target actor")
+      if(counter <= 2) {
+        replyTo ! StreamElementOut(ResponseWithId(msg.id, msg.name, Random.nextInt(100)))
+      } else {
         replyTo ! StreamElementOut(ResponseWithId(msg.id, msg.name, Random.nextInt(100)))
         replyTo ! StreamElementOut(ResponseWithId(msg.id, msg.name, Random.nextInt(100)))
       }
+
       replyTo ! StreamAck
       Behaviors.same
 

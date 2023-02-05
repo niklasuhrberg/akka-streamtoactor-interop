@@ -12,8 +12,14 @@ import scala.collection.mutable
 import scala.util.Failure
 
 
-class PassthroughActorRefBackpressureProcessFlowStage[T<:FlowMessageWithId, P](private val targetActor: ActorRef) extends GraphStage[FlowShape[(T, P), (T, Option[P])]] {
+class PassthroughActorRefBackpressureProcessFlowStage[T<:FlowMessageWithId, P](private val targetActor: ActorRef)
+  extends GraphStage[FlowShape[(T, P), (T, Option[P])]] {
   /**
+   * A stage actor based GraphStage with support for pass-through type functionality (the type P is the type of the
+   * pass-through element) where there is an id (a UUID) property of the application messages (here typed FlowMessageWithId)
+   * The first response from the target actor for a given id will be accompanied with a Some[P] and in the event
+   * there are multiple responses with the same id of the response the subsequent will be accompanied with a None.
+   *
    * Sends the elements of the stream to the given `ActorRef` that sends back back-pressure signal.
    * First element is always `StreamInit`, then stream is waiting for acknowledgement message
    * `ackMessage` from the given actor which means that it is ready to process
